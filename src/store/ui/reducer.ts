@@ -6,7 +6,7 @@ const initialState: UIState = {
 
 export function uiReducer(
   state = initialState,
-  action: UIActionTypes
+  action: UIActionTypes,
 ): UIState {
   switch (action.type) {
     case SET_LOADING:
@@ -17,4 +17,4 @@ export function uiReducer(
     default:
       return state;
   }
-} 
+}

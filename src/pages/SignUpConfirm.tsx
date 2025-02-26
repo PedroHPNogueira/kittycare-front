@@ -4,9 +4,9 @@ import Layout from '../components/Layout';
 
 // Constants
 const REDIRECT_PATHS = {
-  PRICE_SELECTION: "/priceselection",
-  PROGRESS: "/progress",
-  CAT_ASSISTANT: "/cat-assistant"
+  PRICE_SELECTION: '/priceselection',
+  PROGRESS: '/progress',
+  CAT_ASSISTANT: '/cat-assistant',
 } as const;
 
 const emailProviders: { [key: string]: string } = {
@@ -16,7 +16,6 @@ const emailProviders: { [key: string]: string } = {
   hotmail: 'https://outlook.live.com', // Hotmail redirects to Outlook
   aol: 'https://mail.aol.com',
 };
-
 
 const SignUpConfirm: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -31,12 +30,12 @@ const SignUpConfirm: React.FC = () => {
       setEmail(storedEmail);
       if (!token) return;
 
-      const subscriptionId = localStorage.getItem("subscriptionId");
-      const catId = localStorage.getItem("catId");
+      const subscriptionId = localStorage.getItem('subscriptionId');
+      const catId = localStorage.getItem('catId');
 
-      if (!subscriptionId || subscriptionId === "undefined") {
+      if (!subscriptionId || subscriptionId === 'undefined') {
         navigate(`${REDIRECT_PATHS.PRICE_SELECTION}?${urlParams.toString()}`);
-      } else if (!catId || catId === "undefined") {
+      } else if (!catId || catId === 'undefined') {
         navigate(REDIRECT_PATHS.PROGRESS);
       } else {
         navigate(REDIRECT_PATHS.CAT_ASSISTANT);
@@ -54,7 +53,7 @@ const SignUpConfirm: React.FC = () => {
 
   const handleGoToInbox = () => {
     if (!email) {
-      console.error("Email not found in localStorage.");
+      console.error('Email not found in localStorage.');
       return;
     }
     const link = getEmailProviderLink(email);
@@ -65,12 +64,16 @@ const SignUpConfirm: React.FC = () => {
 
   return (
     <Layout>
-      <div className='p-2 flex flex-col items-center justify-center gap-5 mt-11'>
-        <h1 className='text-3xl sm:text-6xl text-center mt-11'>Thanks for signing up!</h1>
-        <p className='text-xl sm:text-3xl text-center'>Please check your inbox to confirm</p>
+      <div className="mt-11 flex flex-col items-center justify-center gap-5 p-2">
+        <h1 className="mt-11 text-center text-3xl sm:text-6xl">
+          Thanks for signing up!
+        </h1>
+        <p className="text-center text-xl sm:text-3xl">
+          Please check your inbox to confirm
+        </p>
         <button
           onClick={handleGoToInbox}
-          className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-lg mt-5'
+          className="mt-5 rounded-lg bg-blue-500 px-4 py-2 text-lg text-white hover:bg-blue-600"
         >
           Go to Inbox
         </button>

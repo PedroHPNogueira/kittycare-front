@@ -30,7 +30,11 @@ const Progress = () => {
     const step = queryParams.get('step');
     if (step) {
       const stepNumber = parseInt(step, 10);
-      if (!isNaN(stepNumber) && stepNumber >= MIN_STEP && stepNumber <= MAX_STEPS) {
+      if (
+        !isNaN(stepNumber) &&
+        stepNumber >= MIN_STEP &&
+        stepNumber <= MAX_STEPS
+      ) {
         setCurrentStep(stepNumber);
       }
     }
@@ -39,7 +43,7 @@ const Progress = () => {
   // useEffect(() => {
   //   const token = localStorage.getItem('token');
   //   console.log("Token retrieved:", token); // Log the token value
-  
+
   //   if (token) {
   //     setIsAuthenticated(true);
   //     console.log("User is authenticated");
@@ -83,7 +87,8 @@ const Progress = () => {
     setCurrentStep((prevStep) => {
       const newPrevStep = prevStep - 1;
       window.scrollTo(0, 0);
-      const updatedStep = newPrevStep === 14 ? 13 : Math.max(newPrevStep, MIN_STEP);
+      const updatedStep =
+        newPrevStep === 14 ? 13 : Math.max(newPrevStep, MIN_STEP);
       // Update URL with new step
       navigate(`?step=${updatedStep}`, { replace: true });
       return updatedStep;
@@ -106,23 +111,31 @@ const Progress = () => {
   }, []);
 
   // Memoized panel mapping to prevent recreation on each render
-  const panelMap = useMemo(() => ({
-    1: <Panels.Panel01 nextStep={nextStep} />,
-    2: <Panels.Panel02 nextStep={nextStep} previousStep={previousStep} />,
-    3: <Panels.Panel03 nextStep={nextStep} previousStep={previousStep} />,
-    4: <Panels.Panel04 nextStep={nextStep} previousStep={previousStep} />,
-    5: <Panels.Panel05 nextStep={nextStep} previousStep={previousStep} />,
-    6: <Panels.Panel06 nextStep={nextStep} previousStep={previousStep} />,
-    7: <Panels.Panel07 nextStep={nextStep} previousStep={previousStep} />,
-    8: <Panels.Panel08 nextStep={nextStep} previousStep={previousStep} />,
-    9: <Panels.Panel09 nextStep={nextStep} previousStep={previousStep} />,
-    10: <Panels.Panel10 nextStep={nextStep} previousStep={previousStep} />,
-    11: <Panels.Panel11 nextStep={nextStep} previousStep={previousStep} />,
-    12: <Panels.Panel12 nextStep={nextStep} previousStep={previousStep} />,
-    13: <Panels.Panel13 nextStep={nextStep} previousStep={previousStep} />,
-    // 14: <Panels.Panel14 previousStep={previousStep} openPaymentModal={openPaymentModal}/>,
-    15: <Panels.Panel14 previousStep={previousStep} openPaymentModal={openPaymentModal} />,
-  }), []);
+  const panelMap = useMemo(
+    () => ({
+      1: <Panels.Panel01 nextStep={nextStep} />,
+      2: <Panels.Panel02 nextStep={nextStep} previousStep={previousStep} />,
+      3: <Panels.Panel03 nextStep={nextStep} previousStep={previousStep} />,
+      4: <Panels.Panel04 nextStep={nextStep} previousStep={previousStep} />,
+      5: <Panels.Panel05 nextStep={nextStep} previousStep={previousStep} />,
+      6: <Panels.Panel06 nextStep={nextStep} previousStep={previousStep} />,
+      7: <Panels.Panel07 nextStep={nextStep} previousStep={previousStep} />,
+      8: <Panels.Panel08 nextStep={nextStep} previousStep={previousStep} />,
+      9: <Panels.Panel09 nextStep={nextStep} previousStep={previousStep} />,
+      10: <Panels.Panel10 nextStep={nextStep} previousStep={previousStep} />,
+      11: <Panels.Panel11 nextStep={nextStep} previousStep={previousStep} />,
+      12: <Panels.Panel12 nextStep={nextStep} previousStep={previousStep} />,
+      13: <Panels.Panel13 nextStep={nextStep} previousStep={previousStep} />,
+      // 14: <Panels.Panel14 previousStep={previousStep} openPaymentModal={openPaymentModal}/>,
+      15: (
+        <Panels.Panel14
+          previousStep={previousStep}
+          openPaymentModal={openPaymentModal}
+        />
+      ),
+    }),
+    [],
+  );
 
   // Render current panel based on step
   const renderPanel = () => {
@@ -137,15 +150,18 @@ const Progress = () => {
 
   return (
     <Layout>
-      <PaymentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <PaymentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <div className={`${isModalOpen ? 'blur' : ''}`}>
-        <div className={`w-full text-center flex justify-center items-center`}>
+        <div className={`flex w-full items-center justify-center text-center`}>
           <ProgressBar
-            className="w-full flex items-center justify-center"
+            className="flex w-full items-center justify-center"
             currentStep={currentStep}
           />
         </div>
-        <div className="flex-grow flex items-center justify-center w-full">
+        <div className="flex w-full flex-grow items-center justify-center">
           {renderPanel()}
         </div>
       </div>

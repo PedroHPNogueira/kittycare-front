@@ -4,10 +4,12 @@ import { MAX_GOALS } from '../constants/goals';
 const STORAGE_KEY = 'goals';
 
 export const useGoals = (nextStep: () => void) => {
-  const [selectedGoals, setSelectedGoals] = useState<string[]>(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(
+    JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
+  );
 
   const handleGoalSelect = (goal: string) => {
-    setSelectedGoals(prev => {
+    setSelectedGoals((prev) => {
       if (prev.includes(goal)) {
         return prev.filter((g) => g !== goal);
       }
@@ -27,6 +29,6 @@ export const useGoals = (nextStep: () => void) => {
   return {
     selectedGoals,
     handleGoalSelect,
-    handleNext
+    handleNext,
   };
-}; 
+};

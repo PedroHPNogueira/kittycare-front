@@ -1,28 +1,28 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 
-import Icon from "./Icon";
-import ExtendBtn from "./ExtendBtn";
-import CollapseBtn from "./CollapseBtn";
-import Content from "./Content";
+import Icon from './Icon';
+import ExtendBtn from './ExtendBtn';
+import CollapseBtn from './CollapseBtn';
+import Content from './Content';
 
-import KittyCare from "/assets/svg/KittyCare.svg";
-import SmartKitty from "/assets/svg/chatcare.svg";
+import KittyCare from '/assets/svg/KittyCare.svg';
+import SmartKitty from '/assets/svg/chatcare.svg';
 // import Health from "/assets/svg/Health.svg";
-import MyPlan from "/assets/svg/report.svg";
+import MyPlan from '/assets/svg/report.svg';
 // import Settings from "/assets/svg/Settings.svg";
-import Logout from "/assets/svg/Logout.svg";
-import Profile from "/assets/svg/Profile.svg";
-import KittyCareText from "/assets/svg/KittyCareText.svg";
-import KittyCareTextMobile from "/assets/svg/KittyCareTextMobile.svg";
-import Edit from "/assets/svg/Edit.svg";
-import MiniBtn from "/assets/svg/MiniBtn.svg";
-import { logout } from "../../../Redux/features/userSlice";
-import { useAppDispatch, } from "../../../Redux/hooks";
-import { useNavigate } from "react-router-dom";
+import Logout from '/assets/svg/Logout.svg';
+import Profile from '/assets/svg/Profile.svg';
+import KittyCareText from '/assets/svg/KittyCareText.svg';
+import KittyCareTextMobile from '/assets/svg/KittyCareTextMobile.svg';
+import Edit from '/assets/svg/Edit.svg';
+import MiniBtn from '/assets/svg/MiniBtn.svg';
+import { logout } from '../../../Redux/features/userSlice';
+import { useAppDispatch } from '../../../Redux/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [onHover, setOnHover] = useState("");
+  const [onHover, setOnHover] = useState('');
 
   const token = localStorage.getItem('token');
   const [firstName, setFirstName] = useState('');
@@ -39,14 +39,14 @@ const SideBar = () => {
         isOpen &&
         sideBarRef.current &&
         !(sideBarRef.current as HTMLElement).contains(event.target as Node) &&
-        (event.target as HTMLElement).id !== "sideBar"
+        (event.target as HTMLElement).id !== 'sideBar'
       ) {
         setIsOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [isOpen]);
 
@@ -55,21 +55,21 @@ const SideBar = () => {
       // Get user info from token
       const payload = token.split('.')[1];
       const user = JSON.parse(atob(payload));
-      setFirstName(user.user_metadata.first_name)
+      setFirstName(user.user_metadata.first_name);
     } catch (error) {
       console.error('Error decoding token:', error);
     }
-  }, [])
+  }, []);
 
   const handleLogout = () => {
     dispatch(logout());
-    window.location.href = "/login";
+    window.location.href = '/login';
   };
 
   return (
-    <div id="sideBar" className="fixed h-dvh flex z-20">
-      <div className="hidden sm:flex relative my-12 ml-12 w-auto h-[90%] bg-[#FADFC9] rounded-2xl p-[18px] flex-col justify-between">
-        <div className="absolute top-[72px] -right-[17%] -translate-x-1 -z-10 hover:cursor-pointer">
+    <div id="sideBar" className="fixed z-20 flex h-dvh">
+      <div className="relative my-12 ml-12 hidden h-[90%] w-auto flex-col justify-between rounded-2xl bg-[#FADFC9] p-[18px] sm:flex">
+        <div className="absolute -right-[17%] top-[72px] -z-10 -translate-x-1 hover:cursor-pointer">
           <ExtendBtn handleClick={() => setIsOpen(true)} />
         </div>
         <div className="flex flex-col gap-10">
@@ -86,8 +86,12 @@ const SideBar = () => {
           </div>
           <div className="flex flex-col gap-4">
             {[
-              { id: "/cat-assistant", src: SmartKitty, content: 'Chat with Expert' },
-              { id: "/progress", src: MyPlan, content: 'Review Report' },
+              {
+                id: '/cat-assistant',
+                src: SmartKitty,
+                content: 'Chat with Expert',
+              },
+              { id: '/progress', src: MyPlan, content: 'Review Report' },
               // { id: "MyPlan", src: MyPlan },
               // { id: "Settings", src: Settings },
             ].map((item) => (
@@ -100,7 +104,6 @@ const SideBar = () => {
                   isOpen={isOpen}
                 />
               </a>
-
             ))}
           </div>
         </div>
@@ -126,7 +129,7 @@ const SideBar = () => {
       </div>
 
       <div
-        className="block sm:hidden top-12 left-4 fixed"
+        className="fixed left-4 top-12 block sm:hidden"
         onClick={() => {
           setIsOpen(true);
         }}
@@ -134,14 +137,13 @@ const SideBar = () => {
         <img src={MiniBtn} alt="MiniBtn" />
       </div>
 
-      <div className="block sm:hidden text-black text-base font-medium">
+      <div className="block text-base font-medium text-black sm:hidden">
         <div
-          className={`h-[100dvh] fixed top-0 left-0 bg-[#FADFC9] transition-all duration-500 overflow-hidden ${isOpen
-            ? `w-[80%] pb-[env(safe-area-inset-bottom,20px)]`
-            : `w-0`
-            }`}
+          className={`fixed left-0 top-0 h-[100dvh] overflow-hidden bg-[#FADFC9] transition-all duration-500 ${
+            isOpen ? `w-[80%] pb-[env(safe-area-inset-bottom,20px)]` : `w-0`
+          }`}
         >
-          <div className="w-full h-full flex flex-col justify-between px-[16px] pt-[max(env(safe-area-inset-top),36px)] pb-[max(env(safe-area-inset-bottom,24px),24px)]">
+          <div className="flex h-full w-full flex-col justify-between px-[16px] pb-[max(env(safe-area-inset-bottom,24px),24px)] pt-[max(env(safe-area-inset-top),36px)]">
             <div className="flex flex-col gap-10">
               <div className="flex">
                 <a href="/cat-assistant">
@@ -161,8 +163,12 @@ const SideBar = () => {
               </div>
               <div className="flex flex-col gap-4">
                 {[
-                  { id: "/cat-assistant", src: SmartKitty, content: "Chat with Expert" },
-                  { id: "/progress", src: MyPlan, content: "Review Report" },
+                  {
+                    id: '/cat-assistant',
+                    src: SmartKitty,
+                    content: 'Chat with Expert',
+                  },
+                  { id: '/progress', src: MyPlan, content: 'Review Report' },
                   // { id: "MyPlan", src: MyPlan },
                   // { id: "Settings", src: Settings },
                 ].map((item) => (
@@ -171,13 +177,13 @@ const SideBar = () => {
                       id={item.id}
                       onHover={onHover}
                       src={item.src}
-                      handleHover={() => { }}
+                      handleHover={() => {}}
                       isOpen={isOpen}
                     />
                     <Content
                       id={item.id}
                       content={item.content}
-                      handleHover={() => { }}
+                      handleHover={() => {}}
                       onHover={onHover}
                       onClick={() => navigate(item.id)}
                     />
@@ -188,37 +194,37 @@ const SideBar = () => {
             <div className="flex flex-col gap-4">
               <div className="flex items-center" onClick={handleLogout}>
                 <Icon
-                  id={"Logout"}
+                  id={'Logout'}
                   onHover={onHover}
                   src={Logout}
-                  handleHover={() => { }}
+                  handleHover={() => {}}
                   isOpen={isOpen}
                 />
                 <Content
                   id="Logout"
                   content="Logout"
-                  handleHover={() => { }}
+                  handleHover={() => {}}
                   onHover={onHover}
                 />
               </div>
               <a href="/cat-profile">
-                <div className="w-full flex items-center justify-between">
+                <div className="flex w-full items-center justify-between">
                   <div className="flex items-center">
                     <Icon
-                      id={"Profile"}
+                      id={'Profile'}
                       onHover={onHover}
                       src={Profile}
-                      handleHover={() => { }}
+                      handleHover={() => {}}
                       isOpen={isOpen}
                     />
                     <Content
                       id="Profile"
                       content={`Welcome ${firstName}`}
-                      handleHover={() => { }}
+                      handleHover={() => {}}
                       onHover={onHover}
                     />
                   </div>
-                  <div className="py-5 mx-5 tooltip">
+                  <div className="tooltip mx-5 py-5">
                     <span className="tooltiptext">Edit</span>
                     <img src={Edit} alt="Edit" />
                   </div>
@@ -226,15 +232,14 @@ const SideBar = () => {
               </a>
             </div>
           </div>
-          <div className="absolute top-32 -right-[47px] -translate-x-1 z-10 hover:cursor-pointer">
+          <div className="absolute -right-[47px] top-32 z-10 -translate-x-1 hover:cursor-pointer">
             <CollapseBtn handleClick={() => setIsOpen(false)} />
           </div>
         </div>
       </div>
 
       <div
-        className={`hidden sm:flex transition-all duration-500 my-12 h-[90%] bg-[#F5D7BF] rounded-2xl flex-col justify-between
-          ${isOpen ? `w-[333px] py-[18px]` : `w-0 py-0`}`}
+        className={`my-12 hidden h-[90%] flex-col justify-between rounded-2xl bg-[#F5D7BF] transition-all duration-500 sm:flex ${isOpen ? `w-[333px] py-[18px]` : `w-0 py-0`}`}
         ref={sideBarRef}
       >
         {isOpen && (
@@ -243,7 +248,7 @@ const SideBar = () => {
               <div className="flex">
                 <a href="/cat-assistant">
                   <div
-                    className={`text-[20px] px-[26px] w-full h-[70px] flex items-center`}
+                    className={`flex h-[70px] w-full items-center px-[26px] text-[20px]`}
                   >
                     <img src={KittyCareText} alt="KittyCareText" />
                   </div>
@@ -251,8 +256,8 @@ const SideBar = () => {
               </div>
               <div className="flex flex-col gap-4">
                 {[
-                  { id: "/cat-assistant", content: "Chat With Expert" },
-                  { id: "/progress", content: "Review Report" },
+                  { id: '/cat-assistant', content: 'Chat With Expert' },
+                  { id: '/progress', content: 'Review Report' },
                   // { id: "MyPlan", content: "Planner" },
                   // { id: "Settings", content: "Settings" },
                 ].map((item) => (
@@ -275,22 +280,24 @@ const SideBar = () => {
                 onHover={onHover}
               />
               <a href="/cat-profile">
-                <div className="w-full flex items-center justify-between">
+                <div className="flex w-full items-center justify-between">
                   <Content
                     id="Profile"
                     content={`Welcome ${firstName}`}
                     handleHover={(id) => setOnHover(id)}
                     onHover={onHover}
                   >
-                    <div className="py-5 mx-5 tooltip">
-                      <span className="tooltiptext -mt-1 text-base font-medium">Edit</span>
+                    <div className="tooltip mx-5 py-5">
+                      <span className="tooltiptext -mt-1 text-base font-medium">
+                        Edit
+                      </span>
                       <img src={Edit} alt="Edit" />
                     </div>
                   </Content>
                 </div>
               </a>
             </div>
-            <div className="absolute top-32 -right-[52px] -translate-x-1 z-10 hover:cursor-pointer">
+            <div className="absolute -right-[52px] top-32 z-10 -translate-x-1 hover:cursor-pointer">
               <CollapseBtn handleClick={() => setIsOpen(false)} />
             </div>
             {/* <div className="absolute -z-40 top-0 left-0 h-screen w-screen bg-black opacity-20"></div> */}

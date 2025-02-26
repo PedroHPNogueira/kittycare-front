@@ -1,21 +1,21 @@
 // import ReactPixel from 'react-facebook-pixel';
-import { useNavigate } from "react-router-dom";
-import { logout } from "../Redux/features/userSlice";
-import { useAppDispatch } from "../Redux/hooks";
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../Redux/features/userSlice';
+import { useAppDispatch } from '../Redux/hooks';
 import { useEffect } from 'react';
-import { Link } from "react-router-dom";
-import Layout from "../components/Layout";
+import { Link } from 'react-router-dom';
+import Layout from '../components/Layout';
 
 // Navigation items configuration
 const NAV_ITEMS = [
-  { path: "/login", label: "Login" },
-  { path: "/signup", label: "Signup" },
-  { path: "/priceselection", label: "Price Selection" },
-  { path: "/paymentmethod", label: "Payment Method" },
-  { path: "/paymentdetail", label: "Payment Detail" },
-  { path: "/cat-assistant", label: "Chatroom" },
-  { path: "/cat-profile", label: "Profile" },
-  { path: "/progress", label: "Go to Progress" },
+  { path: '/login', label: 'Login' },
+  { path: '/signup', label: 'Signup' },
+  { path: '/priceselection', label: 'Price Selection' },
+  { path: '/paymentmethod', label: 'Payment Method' },
+  { path: '/paymentdetail', label: 'Payment Detail' },
+  { path: '/cat-assistant', label: 'Chatroom' },
+  { path: '/cat-profile', label: 'Profile' },
+  { path: '/progress', label: 'Go to Progress' },
 ] as const;
 
 /**
@@ -32,17 +32,17 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/login");
+    navigate('/login');
   };
 
   return (
     <Layout>
-      <nav className="w-full min-h-[700px] flex flex-col items-center justify-center gap-4">
+      <nav className="flex min-h-[700px] w-full flex-col items-center justify-center gap-4">
         {NAV_ITEMS.map(({ path, label }) => (
           <Link
             key={path}
             to={path}
-            className="text-xl hover:text-primary transition-colors"
+            className="hover:text-primary text-xl transition-colors"
           >
             {label}
           </Link>
@@ -50,7 +50,7 @@ const Dashboard = () => {
 
         <button
           onClick={handleLogout}
-          className="text-xl hover:text-red-500 transition-colors cursor-pointer"
+          className="cursor-pointer text-xl transition-colors hover:text-red-500"
         >
           Logout
         </button>

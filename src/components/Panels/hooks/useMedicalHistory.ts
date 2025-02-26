@@ -10,10 +10,12 @@ export const useMedicalHistory = () => {
   });
 
   useEffect(() => {
-    const storedMedicalCondition = localStorage.getItem("medical_conditions");
-    const storedMedication = localStorage.getItem("medications");
-    const storedDietaryRestrictions = localStorage.getItem("dietary_restrictions");
-    const storedSurgeryHistory = localStorage.getItem("medical_history");
+    const storedMedicalCondition = localStorage.getItem('medical_conditions');
+    const storedMedication = localStorage.getItem('medications');
+    const storedDietaryRestrictions = localStorage.getItem(
+      'dietary_restrictions',
+    );
+    const storedSurgeryHistory = localStorage.getItem('medical_history');
 
     setFormData({
       medicalCondition: storedMedicalCondition,
@@ -24,8 +26,8 @@ export const useMedicalHistory = () => {
   }, []);
 
   const updateFormField = (field: keyof MedicalHistoryForm, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
     // Map form fields to localStorage keys
     const storageKeys = {
       medicalCondition: 'medical_conditions',
@@ -33,14 +35,12 @@ export const useMedicalHistory = () => {
       dietaryRestrictions: 'dietary_restrictions',
       surgeryHistory: 'medical_history',
     };
-    
+
     localStorage.setItem(storageKeys[field], value);
   };
 
   const isFormValid = (): boolean => {
-    return Boolean(
-      formData.medicalCondition
-    );
+    return Boolean(formData.medicalCondition);
   };
 
   return {
@@ -48,4 +48,4 @@ export const useMedicalHistory = () => {
     updateFormField,
     isFormValid,
   };
-}; 
+};

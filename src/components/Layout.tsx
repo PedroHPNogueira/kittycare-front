@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import Header from "./Header";
+import React, { useEffect } from 'react';
+import Header from './Header';
 
 // Update image imports
-import layoutTR from "/assets/png/layout-tr.png";
-import layoutTL from "/assets/png/layout-tl.png";
-import layoutBR from "/assets/png/layout-br.png";
-import layoutBL from "/assets/png/layout-bl.png";
+import layoutTR from '/assets/png/layout-tr.png';
+import layoutTL from '/assets/png/layout-tl.png';
+import layoutBR from '/assets/png/layout-br.png';
+import layoutBL from '/assets/png/layout-bl.png';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ const preloadImages = async () => {
       preloadImage(layoutTR),
       preloadImage(layoutTL),
       preloadImage(layoutBR),
-      preloadImage(layoutBL)
+      preloadImage(layoutBL),
     ]);
   } catch (error) {
     console.error('Error preloading images:', error);
@@ -39,17 +39,17 @@ const preloadImages = async () => {
 };
 
 // Background component with improved loading strategy
-const Background: React.FC<BackgroundProps> = ({ className = "" }) => (
+const Background: React.FC<BackgroundProps> = ({ className = '' }) => (
   <div
-    className={`w-full h-full fixed top-0 left-0 -z-10 bg-[#FAF6F3] ${className}`}
+    className={`fixed left-0 top-0 -z-10 h-full w-full bg-[#FAF6F3] ${className}`}
     data-testid="layout-background"
   >
-    <div className="w-full h-full relative">
+    <div className="relative h-full w-full">
       {/* Top-Left Layout */}
       <img
         src={layoutTL}
         alt="Top left decorative pattern"
-        className="absolute top-0 left-0 w-auto h-auto max-w-[50%] sm:max-w-[40%] top-left"
+        className="top-left absolute left-0 top-0 h-auto w-auto max-w-[50%] sm:max-w-[40%]"
         loading="eager"
         fetchPriority="high"
         decoding="async"
@@ -59,7 +59,7 @@ const Background: React.FC<BackgroundProps> = ({ className = "" }) => (
       <img
         src={layoutTR}
         alt="Top right decorative pattern"
-        className="absolute top-0 right-0 w-auto h-auto max-w-[50%] sm:max-w-[40%] top-right"
+        className="top-right absolute right-0 top-0 h-auto w-auto max-w-[50%] sm:max-w-[40%]"
         loading="eager"
         fetchPriority="high"
         decoding="async"
@@ -69,7 +69,7 @@ const Background: React.FC<BackgroundProps> = ({ className = "" }) => (
       <img
         src={layoutBL}
         alt="Bottom left decorative pattern"
-        className="absolute bottom-0 left-0 w-auto h-auto max-w-[50%] sm:max-w-[40%]"
+        className="absolute bottom-0 left-0 h-auto w-auto max-w-[50%] sm:max-w-[40%]"
         loading="eager"
         fetchPriority="high"
         decoding="async"
@@ -79,7 +79,7 @@ const Background: React.FC<BackgroundProps> = ({ className = "" }) => (
       <img
         src={layoutBR}
         alt="Bottom right decorative pattern"
-        className="absolute bottom-0 right-0 w-auto h-auto max-w-[50%] sm:max-w-[40%]"
+        className="absolute bottom-0 right-0 h-auto w-auto max-w-[50%] sm:max-w-[40%]"
         loading="eager"
         fetchPriority="high"
         decoding="async"
@@ -96,8 +96,8 @@ const Background: React.FC<BackgroundProps> = ({ className = "" }) => (
  */
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const pathname = window.location.pathname;
-  const isChatroom = pathname === "/cat-assistant";
-  const isProfile = pathname === "/cat-profile";
+  const isChatroom = pathname === '/cat-assistant';
+  const isProfile = pathname === '/cat-profile';
 
   useEffect(() => {
     // Preload images
@@ -105,8 +105,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
     // Cleanup function to remove preload links when component unmounts
     return () => {
-      const links = document.head.querySelectorAll('link[rel="preload"][as="image"]');
-      links.forEach(link => link.remove());
+      const links = document.head.querySelectorAll(
+        'link[rel="preload"][as="image"]',
+      );
+      links.forEach((link) => link.remove());
     };
   }, []);
 
@@ -116,12 +118,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }
 
   return (
-    <div className="w-screen relative">
+    <div className="relative w-screen">
       <main role="main" className="min-h-screen">
         <div className="w-full">
           <Header />
           <div className="flex-1">{children}</div>
-          <div className="w-full h-5" aria-hidden="true" />
+          <div className="h-5 w-full" aria-hidden="true" />
         </div>
       </main>
       <Background />
@@ -129,4 +131,3 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 export default Layout;
-

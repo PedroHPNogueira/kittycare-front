@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 
-export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T,
+): [T, (value: T) => void] {
   // Get from local storage then
   // parse stored json or return initialValue
   const readValue = (): T => {
     try {
       const item = window.localStorage.getItem(key);
 
-      if (item && item.includes("[")) {
+      if (item && item.includes('[')) {
         return JSON.parse(item);
       }
 
@@ -35,8 +38,8 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T)
 
   useEffect(() => {
     setStoredValue(readValue());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return [storedValue, setValue];
-} 
+}

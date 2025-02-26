@@ -10,8 +10,8 @@ const CollapseBtn: React.FC<CollapseBtnProps> = ({ handleClick }) => {
       aria-label="Collapse sidebar"
       type="button"
     >
-      <div className="w-16 h-16 rounded-2xl rotate-45 bg-[#FAF6F3]" />
-      <span className="absolute top-1/2 left-1/2 -translate-x-7 -translate-y-5 text-2xl">
+      <div className="h-16 w-16 rotate-45 rounded-2xl bg-[#FAF6F3]" />
+      <span className="absolute left-1/2 top-1/2 -translate-x-7 -translate-y-5 text-2xl">
         ‹
       </span>
     </button>

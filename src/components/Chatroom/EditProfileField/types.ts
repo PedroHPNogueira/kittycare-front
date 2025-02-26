@@ -11,4 +11,4 @@ export interface PhotoData {
   buffer: number[];
   mimetype: string;
   originalname: string;
-} 
+}

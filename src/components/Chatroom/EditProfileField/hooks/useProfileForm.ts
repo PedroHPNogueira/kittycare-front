@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../../../Redux/hooks";
-import { useNavigate } from "react-router-dom";
-import { fetchCatsAsync, updateCatAsync } from "../../../../Redux/features/catsSlice";
-import { setLoading } from "../../../../store/ui/actions";
-import { ProfileInfo, PhotoData } from "../types";
-import { INITIAL_PROFILE_STATE } from "../constants";
+import { useEffect, useState } from 'react';
+import { useAppDispatch } from '../../../../Redux/hooks';
+import { useNavigate } from 'react-router-dom';
+import {
+  fetchCatsAsync,
+  updateCatAsync,
+} from '../../../../Redux/features/catsSlice';
+import { setLoading } from '../../../../store/ui/actions';
+import { ProfileInfo, PhotoData } from '../types';
+import { INITIAL_PROFILE_STATE } from '../constants';
 
 export const useProfileForm = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +15,7 @@ export const useProfileForm = () => {
 
   const [photo, setPhoto] = useState<File>();
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>(
-    INITIAL_PROFILE_STATE
+    INITIAL_PROFILE_STATE,
   );
   const [dataChanged, setDataChanged] = useState<boolean>(false);
 
@@ -24,7 +27,7 @@ export const useProfileForm = () => {
   }, [photo, profileInfo]);
 
   useEffect(() => {
-    dispatch(fetchCatsAsync()).unwrap()
+    dispatch(fetchCatsAsync()).unwrap();
   }, []);
 
   useEffect(() => {
@@ -33,9 +36,18 @@ export const useProfileForm = () => {
     const gender = localStorage.getItem('gender') || '';
     const target_weight = localStorage.getItem('target_weight') || '';
     const medical_history = localStorage.getItem('medical_history') || '';
-    const dietary_restrictions = localStorage.getItem('dietary_restrictions') || '';
-    setProfileInfo({...profileInfo, name, breed, gender, target_weight, medical_history, dietary_restrictions});
-  }, [])
+    const dietary_restrictions =
+      localStorage.getItem('dietary_restrictions') || '';
+    setProfileInfo({
+      ...profileInfo,
+      name,
+      breed,
+      gender,
+      target_weight,
+      medical_history,
+      dietary_restrictions,
+    });
+  }, []);
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
@@ -45,7 +57,7 @@ export const useProfileForm = () => {
 
   const isFormValid = (): boolean => {
     return !!(
-      photo && Object.values(profileInfo).every((value) => value.trim() !== "")
+      photo && Object.values(profileInfo).every((value) => value.trim() !== '')
     );
   };
 
@@ -71,12 +83,12 @@ export const useProfileForm = () => {
       await dispatch(
         updateCatAsync({
           data: { ...profileInfo, photo: photoData },
-        })
+        }),
       ).unwrap();
 
-      navigate("/cat-assistant");
+      navigate('/cat-assistant');
     } catch (error) {
-      console.error("Failed to update cat profile:", error);
+      console.error('Failed to update cat profile:', error);
     } finally {
       dispatch(setLoading(false));
     }

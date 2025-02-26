@@ -15,7 +15,7 @@ export const store = configureStore({
     cats: catsReducer,
     billing: billingReducer,
     subscription: subscriptionReducer,
-    ui: uiReducer as Reducer<UIState, SetLoadingAction | AnyAction>,  
+    ui: uiReducer as Reducer<UIState, SetLoadingAction | AnyAction>,
   },
 });
 

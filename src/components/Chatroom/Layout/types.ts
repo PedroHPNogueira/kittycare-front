@@ -8,4 +8,4 @@ export interface CornerImageProps {
   src: string;
   alt: string;
   className?: string;
-} 
+}

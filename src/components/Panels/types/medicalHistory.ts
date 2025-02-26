@@ -8,4 +8,4 @@ export interface MedicalHistory {
 export interface MedicalHistoryFormProps {
   onSubmit: (data: MedicalHistory) => void;
   initialData?: MedicalHistory;
-} 
+}

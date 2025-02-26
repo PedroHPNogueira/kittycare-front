@@ -4,10 +4,10 @@ export interface PanelNavigationProps {
 }
 
 export interface Panel14Props extends PanelNavigationProps {
-  openPaymentModal: any
+  openPaymentModal: any;
 }
 
 export interface OverviewSectionProps {
   title: string;
   items: string[] | string;
-} 
+}

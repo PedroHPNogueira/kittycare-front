@@ -8,4 +8,4 @@ export interface CatItem {
 export interface Panel12Props {
   nextStep: () => void;
   previousStep: () => void;
-} 
+}

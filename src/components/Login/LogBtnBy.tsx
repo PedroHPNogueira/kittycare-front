@@ -3,19 +3,19 @@ import { LogBtnByProps } from '../../utils/types';
 
 /**
  * LogBtnBy Component
- * 
+ *
  * A button component used for third-party authentication options
  * such as Google, Facebook, etc.
- * 
+ *
  * @param {string} src - Image source for the authentication provider logo
  * @param {string} alt - Alt text for the image
  * @param {string} className - Additional CSS classes
  */
-const LogBtnBy: FC<LogBtnByProps> = ({
+export const LogBtnBy: FC<LogBtnByProps> = ({
   src,
   alt,
   className,
-  onClick
+  onClick,
 }) => {
   const baseStyles = [
     'w-[48px] sm:w-[56px]',
@@ -30,7 +30,7 @@ const LogBtnBy: FC<LogBtnByProps> = ({
     'cursor-pointer',
     'transition-transform',
     'hover:scale-105',
-    className
+    className,
   ].join(' ');
 
   const imageContainerStyles = 'w-[31px] h-[31px]';
@@ -43,12 +43,7 @@ const LogBtnBy: FC<LogBtnByProps> = ({
       aria-label={`Sign in with ${alt}`}
     >
       <div className={imageContainerStyles}>
-        <img
-          className="w-full h-full"
-          src={src}
-          alt={alt}
-          loading="lazy"
-        />
+        <img className="h-full w-full" src={src} alt={alt} loading="lazy" />
       </div>
     </button>
   );

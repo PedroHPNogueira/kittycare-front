@@ -1,4 +1,4 @@
-import { AssetLoadCallback, EventCallback, Layout, useRive } from "rive-react";
+import { AssetLoadCallback, EventCallback, Layout, useRive } from 'rive-react';
 
 export interface RiveParameters {
   canvas?: HTMLCanvasElement | OffscreenCanvas; // required

@@ -14,19 +14,16 @@ interface PawAnimationProps {
 /**
  * PawAnimation Component
  * Renders a Rive animation of paw prints using the provided animation file.
- * 
+ *
  * @param {PawAnimationProps} props - Component props
  * @returns {JSX.Element} Rendered component
  */
-const PawAnimation: React.FC<PawAnimationProps> = ({
-  className,
-  onError
-}) => {
+const PawAnimation: React.FC<PawAnimationProps> = ({ className, onError }) => {
   // Rive animation configuration
   const riveParams: UseRiveParameters = {
     src: RIVE_ANIMATION_PATH,
     stateMachines: STATE_MACHINE_NAME,
-    autoplay: true
+    autoplay: true,
   };
 
   const { RiveComponent, rive } = useRive(riveParams);

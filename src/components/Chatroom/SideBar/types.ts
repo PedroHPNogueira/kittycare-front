@@ -7,4 +7,4 @@ export interface NavItem {
 
 export interface SideBarProps {
   className?: string;
-} 
+}

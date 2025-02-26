@@ -41,7 +41,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   const progressInput = useStateMachineInput(
     rive,
     RIVE_CONFIG.stateMachines,
-    'Progress'
+    'Progress',
   );
 
   useEffect(() => {
@@ -60,20 +60,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
 
   return (
     <div className={`progress-bar-wrapper ${className}`.trim()}>
-      <div
-        className="
-          w-full 
-          rive-container 
-          md:w-[750px] 
-          h-20 
-          md:h-[28] 
-          relative
-        "
-      >
+      <div className="rive-container relative h-20 w-full md:h-[28] md:w-[750px]">
         {RiveComponent ? (
           <RiveComponent />
         ) : (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex h-full items-center justify-center">
             <p className="text-gray-500">Loading animation...</p>
           </div>
         )}

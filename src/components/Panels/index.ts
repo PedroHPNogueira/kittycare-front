@@ -16,7 +16,19 @@ import Panel14 from './Panel14';
 import Panel15 from './Panel15';
 
 export {
-  Panel01, Panel02, Panel03, Panel04, Panel05,
-  Panel06, Panel07, Panel08, Panel09, Panel10,
-  Panel11, Panel12, Panel13, Panel14, Panel15
-}; 
+  Panel01,
+  Panel02,
+  Panel03,
+  Panel04,
+  Panel05,
+  Panel06,
+  Panel07,
+  Panel08,
+  Panel09,
+  Panel10,
+  Panel11,
+  Panel12,
+  Panel13,
+  Panel14,
+  Panel15,
+};

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface TipProps {
   text: string;
@@ -6,13 +6,13 @@ interface TipProps {
 
 const Tip: React.FC<TipProps> = ({ text }) => {
   return (
-    <div className="flex items-center px-4 py-2 bg-pearlBush rounded-[20px]">
+    <div className="flex items-center rounded-[20px] bg-pearlBush px-4 py-2">
       <img
         src="/assets/tip.png"
         alt="Tip icon"
-        className="w-10 h-10 mr-3 object-cover"
+        className="mr-3 h-10 w-10 object-cover"
       />
-      <p className="font-inter text-[14px] font-medium text-left text-black">
+      <p className="text-left font-inter text-[14px] font-medium text-black">
         <span className="font-inter font-semibold">Tips: </span>
         {text}
       </p>

@@ -1,9 +1,12 @@
-import React from "react";
-import { Panel10Props } from "./types";
-import { FREQUENCY_OPTIONS, LOCAL_STORAGE_KEY } from "./constants/frequencyOptions";
-import { useFrequencySelection } from "./hooks/useFrequencySelection";
-import { FrequencyCard } from "./components/FrequencyCard";
-import NavigationButtons from "../NavigationButtons";
+import React from 'react';
+import { Panel10Props } from './types';
+import {
+  FREQUENCY_OPTIONS,
+  LOCAL_STORAGE_KEY,
+} from './constants/frequencyOptions';
+import { useFrequencySelection } from './hooks/useFrequencySelection';
+import { FrequencyCard } from './components/FrequencyCard';
+import NavigationButtons from '../NavigationButtons';
 
 /**
  * Panel10 Component
@@ -15,7 +18,7 @@ const Panel10: React.FC<Panel10Props> = ({ nextStep, previousStep }) => {
   const handleSubmit = () => {
     if (selectedFrequency !== null) {
       const selectedOption = FREQUENCY_OPTIONS.find(
-        (option) => option.id === selectedFrequency
+        (option) => option.id === selectedFrequency,
       );
       if (selectedOption) {
         localStorage.setItem(LOCAL_STORAGE_KEY, selectedOption.title);
@@ -26,9 +29,9 @@ const Panel10: React.FC<Panel10Props> = ({ nextStep, previousStep }) => {
 
   return (
     // <div className="w-full md:max-w-[1380px] p-6 rounded-md mx-auto relative font-inter">
-    <div className="w-full md:max-w-7xl p-6 rounded-md mx-auto relative font-inter mb-10">
-      <div className="text-center mb-6 lg:mb-8">
-        <h1 className="font-extrabold text-xl mb-2 md:mx-56 lg:mx-80">
+    <div className="relative mx-auto mb-10 w-full rounded-md p-6 font-inter md:max-w-7xl">
+      <div className="mb-6 text-center lg:mb-8">
+        <h1 className="mb-2 text-xl font-extrabold md:mx-56 lg:mx-80">
           How Often Do You Want to Check In With Your Cat?
         </h1>
         <p className="text-sm text-darkGray md:mx-44 lg:mx-72">
@@ -38,7 +41,7 @@ const Panel10: React.FC<Panel10Props> = ({ nextStep, previousStep }) => {
         </p>
       </div>
 
-      <div role="radiogroup" className="space-y-1 md:mx-32 lg:mx-60 mb-8">
+      <div role="radiogroup" className="mb-8 space-y-1 md:mx-32 lg:mx-60">
         {FREQUENCY_OPTIONS.map((option) => (
           <FrequencyCard
             key={option.id}

@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { createSubscriptionAPI, getSubscriptionsAPI, deleteSubscriptionAPI, deleteStripeSubscriptionAPI, cancelPayPalSubscription } from '../../services/api';
+import {
+  createSubscriptionAPI,
+  getSubscriptionsAPI,
+  deleteSubscriptionAPI,
+  deleteStripeSubscriptionAPI,
+  cancelPayPalSubscription,
+} from '../../services/api';
 import { SubscriptionState } from '../../utils/types';
 import { clearTokens } from '../../utils/auth';
 
@@ -19,7 +25,7 @@ const initialState: SubscriptionStateWithStatus = {
   billing_period: '',
   status: 'idle',
   error: null,
-  isAuthenticated: false
+  isAuthenticated: false,
 };
 
 export const createSubscriptionAsync = createAsyncThunk(
@@ -33,7 +39,7 @@ export const createSubscriptionAsync = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchSubscriptionsAsync = createAsyncThunk(
@@ -46,7 +52,7 @@ export const fetchSubscriptionsAsync = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const deleteSubscriptionAsync = createAsyncThunk(
@@ -72,19 +78,22 @@ export const deleteSubscriptionAsync = createAsyncThunk(
       localStorage.removeItem('subscriptionId');
       return {
         success: true,
-        message: 'Subscription deleted successfully'
+        message: 'Subscription deleted successfully',
       };
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const subscriptionSlice = createSlice({
   name: 'subscription',
   initialState,
   reducers: {
-    updateSubscription: (state, action: PayloadAction<Partial<SubscriptionState>>) => {
+    updateSubscription: (
+      state,
+      action: PayloadAction<Partial<SubscriptionState>>,
+    ) => {
       return { ...state, ...action.payload };
     },
     logout: () => {
@@ -110,7 +119,7 @@ export const subscriptionSlice = createSlice({
             start_date: action.payload.start_date,
             provider: action.payload.provider,
             billing_period: action.payload.billing_period,
-            error: null
+            error: null,
           });
         }
       })
@@ -133,7 +142,7 @@ export const subscriptionSlice = createSlice({
             start_date: action.payload.start_date,
             provider: action.payload.provider,
             billing_period: action.payload.billing_period,
-            error: null
+            error: null,
           });
         }
       })
@@ -159,8 +168,14 @@ export const subscriptionSlice = createSlice({
 export const { updateSubscription, logout } = subscriptionSlice.actions;
 
 // Selectors
-export const selectSubscription = (state: { subscription: SubscriptionStateWithStatus }) => state.subscription;
-export const selectSubscriptionStatus = (state: { subscription: SubscriptionStateWithStatus }) => state.subscription.status;
-export const selectSubscriptionError = (state: { subscription: SubscriptionStateWithStatus }) => state.subscription.error;
+export const selectSubscription = (state: {
+  subscription: SubscriptionStateWithStatus;
+}) => state.subscription;
+export const selectSubscriptionStatus = (state: {
+  subscription: SubscriptionStateWithStatus;
+}) => state.subscription.status;
+export const selectSubscriptionError = (state: {
+  subscription: SubscriptionStateWithStatus;
+}) => state.subscription.error;
 
-export default subscriptionSlice.reducer; 
+export default subscriptionSlice.reducer;

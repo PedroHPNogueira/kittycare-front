@@ -24,34 +24,37 @@ export const signUpUserAsync = createAsyncThunk(
         token: response.token,
         expiresIn: response.expiresIn || '1h',
         email: userData.email,
-        photo: response.photo || ''
+        photo: response.photo || '',
       });
-      
+
       return response;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const signUpUserWithOTPAsync = createAsyncThunk(
   'user/signUpUserWithOTP',
   async (credentials: SignupState, { rejectWithValue }) => {
     try {
-      let response = await verifyOTPAPI(credentials.email, credentials.token || '');
-      
+      let response = await verifyOTPAPI(
+        credentials.email,
+        credentials.token || '',
+      );
+
       setAuthToken({
         token: response.session.access_token,
         expiresIn: response.session.expires_in,
         email: credentials.email,
-        photo: response.user.user_metadata?.avatar_url || ''
+        photo: response.user.user_metadata?.avatar_url || '',
       });
-      
+
       return response;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const loginUserAsync = createAsyncThunk(
@@ -64,7 +67,7 @@ export const loginUserAsync = createAsyncThunk(
         token: response.token,
         expiresIn: response.expiresIn || '1h',
         email: credentials.email,
-        photo: response.photo || ''
+        photo: response.photo || '',
       });
 
       try {
@@ -83,12 +86,15 @@ export const loginUserAsync = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const loginUserWithOTPAsync = createAsyncThunk(
   'user/loginUserWithOTP',
-  async (credentials: { email: string, token: string }, { rejectWithValue, dispatch }) => {
+  async (
+    credentials: { email: string; token: string },
+    { rejectWithValue, dispatch },
+  ) => {
     try {
       const response = await verifyOTPAPI(credentials.email, credentials.token);
 
@@ -96,11 +102,13 @@ export const loginUserWithOTPAsync = createAsyncThunk(
         token: response.session.access_token,
         expiresIn: response.session.expires_in,
         email: credentials.email,
-        photo: response.user.user_metadata?.avatar_url || ''
+        photo: response.user.user_metadata?.avatar_url || '',
       });
 
       try {
-        await dispatch(fetchSubscriptionsAsync(response.session.access_token)).unwrap();
+        await dispatch(
+          fetchSubscriptionsAsync(response.session.access_token),
+        ).unwrap();
       } catch (error) {
         // Silently ignore any errors from fetchSubscriptionsAsync
       }
@@ -115,9 +123,8 @@ export const loginUserWithOTPAsync = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
-
 
 export const userSlice = createSlice({
   name: 'user',
@@ -140,7 +147,7 @@ export const userSlice = createSlice({
         if (action.payload?.token) {
           Object.assign(state, {
             status: 'succeeded',
-            isAuthenticated: true
+            isAuthenticated: true,
           });
         }
       })
@@ -155,16 +162,16 @@ export const userSlice = createSlice({
         if (action.payload?.token) {
           Object.assign(state, {
             status: 'succeeded',
-            isAuthenticated: true
+            isAuthenticated: true,
           });
         }
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload as string;
-      })
+      });
   },
 });
 
 export const { signUpUser, logout } = userSlice.actions;
-export default userSlice.reducer; 
+export default userSlice.reducer;

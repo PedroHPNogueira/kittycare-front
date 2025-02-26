@@ -32,10 +32,10 @@ const STYLES = {
 
 /**
  * CheckOption Component
- * 
+ *
  * A reusable checkbox component with a label and description.
  * Follows accessibility best practices and provides consistent styling.
- * 
+ *
  * @example
  * ```tsx
  * <CheckOption
@@ -47,53 +47,41 @@ const STYLES = {
  * />
  * ```
  */
-const CheckOption: FC<CheckOptionProps> = memo(({
-  name,
-  checked,
-  label,
-  content,
-  onChange,
-}) => {
-  const checkboxId = `checkbox-${name}`;
-  const descriptionId = `${name}-description`;
+const CheckOption: FC<CheckOptionProps> = memo(
+  ({ name, checked, label, content, onChange }) => {
+    const checkboxId = `checkbox-${name}`;
+    const descriptionId = `${name}-description`;
 
-  return (
-    <div className={STYLES.wrapper}>
-      <div className={STYLES.checkboxGroup}>
-        <div
-          className={`${STYLES.checkbox.dimensions} ${STYLES.checkbox.border} ${STYLES.checkbox.container}`}
-        >
-          <input
-            id={checkboxId}
-            name={name}
-            type="checkbox"
-            checked={checked}
-            className={STYLES.checkbox.input}
-            onChange={onChange}
-            aria-label={label}
-            aria-describedby={descriptionId}
-          />
+    return (
+      <div className={STYLES.wrapper}>
+        <div className={STYLES.checkboxGroup}>
+          <div
+            className={`${STYLES.checkbox.dimensions} ${STYLES.checkbox.border} ${STYLES.checkbox.container}`}
+          >
+            <input
+              id={checkboxId}
+              name={name}
+              type="checkbox"
+              checked={checked}
+              className={STYLES.checkbox.input}
+              onChange={onChange}
+              aria-label={label}
+              aria-describedby={descriptionId}
+            />
+          </div>
+
+          <label htmlFor={checkboxId} className={STYLES.text.label}>
+            {label}
+          </label>
         </div>
 
-        <label
-          htmlFor={checkboxId}
-          className={STYLES.text.label}
-        >
-          {label}
-        </label>
+        <div className={STYLES.text.content} role="note">
+          <p id={descriptionId}>{content}</p>
+        </div>
       </div>
-
-      <div
-        className={STYLES.text.content}
-        role="note"
-      >
-        <p id={descriptionId}>
-          {content}
-        </p>
-      </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 // Add display name for better debugging
 CheckOption.displayName = 'CheckOption';

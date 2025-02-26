@@ -1,4 +1,4 @@
-import { PriceSelectBoxProps } from "../../utils/types";
+import { PriceSelectBoxProps } from '../../utils/types';
 
 const PriceSelectBox = ({
   checked,
@@ -10,49 +10,53 @@ const PriceSelectBox = ({
 }: PriceSelectBoxProps) => {
   return (
     <div
-      className={`relative w-full px-8 h-[200px] sm:h-[280px] py-[70px] sm:py-[95px] rounded-[14px] sm:rounded-[20px] border-[1.5px] sm:border-2 border-[#B8B8B8] ${
-        checked ? "bg-[#FFCE01]" : ""
+      className={`relative h-[200px] w-full rounded-[14px] border-[1.5px] border-[#B8B8B8] px-8 py-[70px] sm:h-[280px] sm:rounded-[20px] sm:border-2 sm:py-[95px] ${
+        checked ? 'bg-[#FFCE01]' : ''
       }`}
     >
       <div className="flex items-center justify-between">
         <div>
           <div>
-            <div className="self-stretch text-[22px] sm:text-[32px] font-bold">
-              {method ? "Annual" : "Monthly"} -{" "}
+            <div className="self-stretch text-[22px] font-bold sm:text-[32px]">
+              {method ? 'Annual' : 'Monthly'} -{' '}
               <span className="text-[#0061EF]">
-                {method ? "7" : "3"} Days Free
+                {method ? '7' : '3'} Days Free
               </span>
             </div>
           </div>
           <div>
             {annual && (
-              <div className="self-stretch text-[18px] sm:text-[24px] font-semibold">
+              <div className="self-stretch text-[18px] font-semibold sm:text-[24px]">
                 ${annual} USD/Year
               </div>
             )}
             {monthly && (
-              <div className="self-stretch text-[18px] sm:text-[24px] font-semibold">
+              <div className="self-stretch text-[18px] font-semibold sm:text-[24px]">
                 ${monthly} USD/Month
               </div>
             )}
             {daily && (
-              <div className="self-stretch text-[18px] sm:text-[24px] font-semibold">
+              <div className="self-stretch text-[18px] font-semibold sm:text-[24px]">
                 ${daily} USD/Day
               </div>
             )}
           </div>
         </div>
         <div>
-          <div className="w-[48px] h-[48px] flex items-center rounded-2xl">
+          <div className="flex h-[48px] w-[48px] items-center rounded-2xl">
             <img
-              className="w-full h-full"
-              src={checked ? "/assets/svg/checked.svg" : "/assets/svg/unchecked.svg"}
+              className="h-full w-full"
+              src={
+                checked
+                  ? '/assets/svg/checked.svg'
+                  : '/assets/svg/unchecked.svg'
+              }
             />
           </div>
         </div>
       </div>
       {isBest && (
-        <span className="absolute top-[-20px] left-[10%] text-[14px] sm:text-[18px] text-center font-semibold text-[#FAF6F3] bg-[#0061EF] rounded-[7.2px] sm:rounded-[10px] px-[21px] py-[7px]">
+        <span className="absolute left-[10%] top-[-20px] rounded-[7.2px] bg-[#0061EF] px-[21px] py-[7px] text-center text-[14px] font-semibold text-[#FAF6F3] sm:rounded-[10px] sm:text-[18px]">
           Best Value
         </span>
       )}

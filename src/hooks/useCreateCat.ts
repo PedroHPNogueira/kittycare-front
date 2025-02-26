@@ -24,4 +24,4 @@ const useCreateCat = () => {
   return { createCat };
 };
 
-export default useCreateCat; 
+export default useCreateCat;

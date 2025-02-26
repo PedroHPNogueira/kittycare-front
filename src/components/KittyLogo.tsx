@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import RiveAnimation from "./RiveAnimation";
+import React, { FC } from 'react';
+import RiveAnimation from './RiveAnimation';
 
 interface KittyLogoProps {
   className?: string;

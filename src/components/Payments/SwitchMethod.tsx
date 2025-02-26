@@ -1,8 +1,8 @@
-import CheckOption from "../Login/CheckOption";
-import Toggle from "../Login/Toggle";
-import { changeMethod } from "../../Redux/features/billingSlice";
-import { RootState } from "../../Redux/store";
-import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import CheckOption from '../Login/CheckOption';
+import Toggle from '../Login/Toggle';
+import { changeMethod } from '../../Redux/features/billingSlice';
+import { RootState } from '../../Redux/store';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 
 const SwitchMethod = () => {
   const billingOption = useAppSelector((state: RootState) => state.billing);
@@ -10,18 +10,20 @@ const SwitchMethod = () => {
   const dispatch = useAppDispatch();
 
   const handleBillInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeMethod({
-      ...billingOption,
-      [e.target.name]: e.target.checked,
-    }));
+    dispatch(
+      changeMethod({
+        ...billingOption,
+        [e.target.name]: e.target.checked,
+      }),
+    );
   };
 
   return (
     <div className="w-full text-justify">
-      <label className="flex gap-[16px] items-center cursor-pointer mt-3 sm:mt-20">
+      <label className="mt-3 flex cursor-pointer items-center gap-[16px] sm:mt-20">
         <span
-          className={`text-[14px] sm:text-[18px] text-black capitalize  ${
-            billingOption.method ? "font-medium opacity-60" : "font-bold"
+          className={`text-[14px] capitalize text-black sm:text-[18px] ${
+            billingOption.method ? 'font-medium opacity-60' : 'font-bold'
           }`}
         >
           Monthly
@@ -32,29 +34,31 @@ const SwitchMethod = () => {
           onChange={handleBillInfo}
         />
         <span
-          className={`text-[14px] sm:text-[18px] text-black capitalize  ${
-            !billingOption.method ? "font-medium opacity-60" : "font-bold"
+          className={`text-[14px] capitalize text-black sm:text-[18px] ${
+            !billingOption.method ? 'font-medium opacity-60' : 'font-bold'
           }`}
         >
           Annually
         </span>
       </label>
-      <div className="text-base sm:text-xl font-semibold capitalize my-4">
+      <div className="my-4 text-base font-semibold capitalize sm:text-xl">
         Get Full Access To
         <br />
         Kitty Care's Expert Advice For
       </div>
-      <div className={`text-[36px] sm:text-[58px] font-semibold ${billingOption.method ? "text-orange-400" : "text-[#0061EF]"} mt-3`}>
+      <div
+        className={`text-[36px] font-semibold sm:text-[58px] ${billingOption.method ? 'text-orange-400' : 'text-[#0061EF]'} mt-3`}
+      >
         ${0} Today
       </div>
-      <div className="text-xl sm:text-2xl font-semibold leading-normal w-full">
+      <div className="w-full text-xl font-semibold leading-normal sm:text-2xl">
         {billingOption.method
           ? `$0.82 USD/Daily, billed annually at $299.99/year after your 7-day
         trial. Cancel anytime.`
           : `$49.99/month after your 3-day trial.
         Cancel anytime.`}
       </div>
-      <div className="flex flex-col gap-[20px] my-3">
+      <div className="my-3 flex flex-col gap-[20px]">
         <CheckOption
           label="Your Trusted Cat Care Expert"
           content="Providing fast, tailored advice on your cat's health, behavior, and overall well being all from the palm of your hand."

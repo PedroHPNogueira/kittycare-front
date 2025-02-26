@@ -46,4 +46,4 @@ const useCatRecommendations = () => {
   return { getCatRecommendations };
 };
 
-export default useCatRecommendations; 
+export default useCatRecommendations;

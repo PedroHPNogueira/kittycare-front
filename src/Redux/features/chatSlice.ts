@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { chatAPI, updateConversationAPI, createConversationAPI, getConversationsAPI } from '../../services/api';
-import { Message } from "../../utils/types";
+import {
+  chatAPI,
+  updateConversationAPI,
+  createConversationAPI,
+  getConversationsAPI,
+} from '../../services/api';
+import { Message } from '../../utils/types';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface ChatState {
@@ -19,20 +24,29 @@ const initialState: ChatState = {
 
 export const sendChatMessageAsync = createAsyncThunk(
   'chat/sendMessage',
-  async ({ catId, messages }: { catId: string; messages: Message[] }, { rejectWithValue }) => {
+  async (
+    { catId, messages }: { catId: string; messages: Message[] },
+    { rejectWithValue },
+  ) => {
     try {
-      const messagesWithoutIds = messages.map(({ role, content }) => ({ role, content }));
-      const response = await chatAPI({ catId, messages: messagesWithoutIds as Message[] });
+      const messagesWithoutIds = messages.map(({ role, content }) => ({
+        role,
+        content,
+      }));
+      const response = await chatAPI({
+        catId,
+        messages: messagesWithoutIds as Message[],
+      });
       const transformedResponse = {
         id: uuidv4(),
         content: response.message,
-        role: "assistant"   
+        role: 'assistant',
       };
       return transformedResponse;
     } catch (error: any) {
       return rejectWithValue(error.message || 'Failed to send message');
     }
-  }
+  },
 );
 
 export const updateConversationAsync = createAsyncThunk(
@@ -48,7 +62,7 @@ export const updateConversationAsync = createAsyncThunk(
       const latestMessage = messages.slice(-1)[0];
       const messageWithoutId = {
         role: latestMessage.role,
-        content: latestMessage.content
+        content: latestMessage.content,
       };
 
       const response = await updateConversationAPI({
@@ -60,7 +74,7 @@ export const updateConversationAsync = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const createConversationAsync = createAsyncThunk(
@@ -73,7 +87,7 @@ export const createConversationAsync = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchConversationsAsync = createAsyncThunk(
@@ -83,9 +97,11 @@ export const fetchConversationsAsync = createAsyncThunk(
       const response = await getConversationsAPI();
       if (response && response.length > 0) {
         // Get the conversation with the highest ID
-        const latestConversation = response.reduce((prev: any, current: any) => {
-          return (prev.id > current.id) ? prev : current;
-        });
+        const latestConversation = response.reduce(
+          (prev: any, current: any) => {
+            return prev.id > current.id ? prev : current;
+          },
+        );
         localStorage.setItem('conversationId', latestConversation.id);
         return latestConversation;
       }
@@ -93,7 +109,7 @@ export const fetchConversationsAsync = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const chatSlice = createSlice({
@@ -108,7 +124,7 @@ export const chatSlice = createSlice({
     addMessage: (state, action: PayloadAction<Omit<Message, 'id'>>) => {
       const messageWithId = {
         ...action.payload,
-        id: uuidv4()
+        id: uuidv4(),
       };
       state.messages.push(messageWithId);
       state.needsSync = true;
@@ -165,4 +181,4 @@ export const chatSlice = createSlice({
 });
 
 export const { clearMessages, addMessage } = chatSlice.actions;
-export default chatSlice.reducer; 
+export default chatSlice.reducer;

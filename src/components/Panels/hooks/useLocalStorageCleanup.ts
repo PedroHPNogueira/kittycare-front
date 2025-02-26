@@ -10,8 +10,8 @@ export const useLocalStorageCleanup = () => {
       return;
     }
 
-    console.log("Clean local storage...");
+    console.log('Clean local storage...');
     // LOCAL_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
     localStorage.clear();
   }, []);
-}; 
+};

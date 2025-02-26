@@ -22,4 +22,4 @@ export const useSubscriptionCheck = () => {
 
     checkSubscription();
   }, [navigate]);
-}; 
+};

@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import TopCorner from "/assets/svg/TopCorner.svg";
-import BottomCorner from "/assets/svg/BottomCorner.svg";
+import TopCorner from '/assets/svg/TopCorner.svg';
+import BottomCorner from '/assets/svg/BottomCorner.svg';
 import { ChatroomLayoutProps } from './types';
 import { LAYOUT_CONSTANTS } from './constants';
 import { CornerImage } from './CornerImage';
@@ -16,42 +16,39 @@ import { CornerImage } from './CornerImage';
  */
 const ChatroomLayout: FC<ChatroomLayoutProps> = ({ children }) => {
   return (
-    <div className="relative w-full sm:w-screen h-[100dvh]">
+    <div className="relative h-[100dvh] w-full sm:w-screen">
       {/* Background container with corner decorations */}
       <div
-        className="w-screen h-screen flex flex-col justify-between fixed -z-50 top-0 right-0"
+        className="fixed right-0 top-0 -z-50 flex h-screen w-screen flex-col justify-between"
         style={{ backgroundColor: LAYOUT_CONSTANTS.BACKGROUND_COLOR }}
         aria-hidden="true"
       >
         {/* Top corner decoration */}
-        <div className="flex justify-end top-0">
-          <div className="w-1/4 h-1/4 md:w-auto lg:w-auto transition-all duration-300">
+        <div className="top-0 flex justify-end">
+          <div className="h-1/4 w-1/4 transition-all duration-300 md:w-auto lg:w-auto">
             <CornerImage
               src={TopCorner}
               alt="Top decorative corner"
-              className="w-full h-auto"
+              className="h-auto w-full"
             />
           </div>
         </div>
 
         {/* Bottom corner decoration */}
-        <div className="flex justify-end items-end">
-          <div className="w-1/3 md:w-auto lg:w-auto transition-all duration-300">
+        <div className="flex items-end justify-end">
+          <div className="w-1/3 transition-all duration-300 md:w-auto lg:w-auto">
             <CornerImage
               src={BottomCorner}
               alt="Bottom decorative corner"
-              className="w-full h-auto"
+              className="h-auto w-full"
             />
           </div>
         </div>
       </div>
 
       {/* Main content container */}
-      <div className="relative z-10 w-full h-[100dvh]">
-        {children}
-      </div>
+      <div className="relative z-10 h-[100dvh] w-full">{children}</div>
     </div>
   );
 };
 export default ChatroomLayout;
-

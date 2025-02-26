@@ -16,4 +16,4 @@ export interface CatFormData {
   dietary_restrictions: string | null;
   medical_history: string | null;
   items: string | null;
-} 
+}

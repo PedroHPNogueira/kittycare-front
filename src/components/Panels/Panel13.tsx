@@ -21,7 +21,7 @@ const Panel13: React.FC<Panel13Props> = ({ nextStep }) => {
     const initializeCat = async () => {
       try {
         let success;
-        if (localStorage.getItem("email")) {
+        if (localStorage.getItem('email')) {
           success = await createCat();
         } else {
           success = await getCatRecommendations();
@@ -44,31 +44,31 @@ const Panel13: React.FC<Panel13Props> = ({ nextStep }) => {
   }, [getCatRecommendations, nextStep]);
 
   return (
-    <div className="w-full max-w-md lg:max-w-4xl mx-auto p-4 lg:p-6 font-inter">
-      <header className="text-center mb-8">
-        <h1 className="font-bold text-xl lg:text-3xl mb-2">
+    <div className="mx-auto w-full max-w-md p-4 font-inter lg:max-w-4xl lg:p-6">
+      <header className="mb-8 text-center">
+        <h1 className="mb-2 text-xl font-bold lg:text-3xl">
           We're Creating Your Cat's Personal Plan!
         </h1>
-        <p className="text-sm lg:text-md text-darkGray max-w-2xl mx-auto">
+        <p className="lg:text-md mx-auto max-w-2xl text-sm text-darkGray">
           Based on your selections, we're crafting a customized care and
           training plan just for your cat. This will only take a moment!
         </p>
       </header>
 
       <main>
-        <PawAnimation className="flex items-center justify-center w-72 h-72 lg:w-full mx-16" />
+        <PawAnimation className="mx-16 flex h-72 w-72 items-center justify-center lg:w-full" />
 
-        <div className="text-center mt-4">
-          <p className="font-semibold text-md lg:text-lg text-darkGray">
+        <div className="mt-4 text-center">
+          <p className="text-md font-semibold text-darkGray lg:text-lg">
             Fetching the best advice for your cat...
           </p>
           <p className="text-sm text-gray-500">This will take a few seconds</p>
         </div>
 
-        <div className="bg-lightPearl text-mediumGray text-center rounded-2xl py-4 px-6 lg:px-10 mt-6 mx-4 lg:mx-auto max-w-md lg:max-w-lg border-pearlBush">
-          <p className="text-xs md:text-sm font-normal">
-            We're getting everything ready! Soon, you'll have a personalized plan
-            that fits your cat's needs and lifestyle.
+        <div className="mx-4 mt-6 max-w-md rounded-2xl border-pearlBush bg-lightPearl px-6 py-4 text-center text-mediumGray lg:mx-auto lg:max-w-lg lg:px-10">
+          <p className="text-xs font-normal md:text-sm">
+            We're getting everything ready! Soon, you'll have a personalized
+            plan that fits your cat's needs and lifestyle.
           </p>
         </div>
       </main>

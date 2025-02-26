@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useAppDispatch } from '../Redux/hooks';
-import { createConversationAsync, fetchConversationsAsync } from '../Redux/features/chatSlice';
+import {
+  createConversationAsync,
+  fetchConversationsAsync,
+} from '../Redux/features/chatSlice';
 import { fetchCatsAsync } from '../Redux/features/catsSlice';
 import { setLoading } from '../store/ui/actions';
 
@@ -18,11 +21,11 @@ export const useInitializeChatroom = () => {
 
     const initializeChatroom = async () => {
       dispatch(setLoading(true));
-      
+
       try {
         const [conversationsResult] = await Promise.all([
           dispatch(fetchConversationsAsync()).unwrap(),
-          dispatch(fetchCatsAsync()).unwrap()
+          dispatch(fetchCatsAsync()).unwrap(),
         ]);
 
         if (!conversationsResult) {
@@ -39,4 +42,4 @@ export const useInitializeChatroom = () => {
 
     initializeChatroom();
   }, [dispatch]);
-}; 
+};

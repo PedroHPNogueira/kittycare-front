@@ -11,7 +11,7 @@
       "@utils/*": ["utils/*"]
     },
     "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedParameters": false
   },
   "files": [],
   "references": [

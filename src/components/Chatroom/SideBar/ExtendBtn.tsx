@@ -8,13 +8,13 @@ const ExtendBtn: FC<ExtendBtnProps> = ({ handleClick }) => {
   const BUTTON_STYLES = {
     size: 'w-[70px] h-[70px]',
     background: 'bg-[#FADFC9]',
-    shape: 'rounded-2xl rotate-45'
+    shape: 'rounded-2xl rotate-45',
   };
 
   const ARROW_STYLES = {
     position: 'absolute top-1/2 left-1/2',
     transform: 'translate-x-7 -translate-y-5',
-    text: 'text-2xl'
+    text: 'text-2xl',
   };
 
   return (

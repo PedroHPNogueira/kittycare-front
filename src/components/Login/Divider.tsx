@@ -11,17 +11,17 @@ interface DividerProps {
  * @param {DividerProps} props - Component properties
  * @returns {JSX.Element} A horizontal divider line
  */
-const Divider: FC<DividerProps> = ({
+export const Divider: FC<DividerProps> = ({
   width = 120,
   opacity = 40,
-  className = ''
+  className = '',
 }) => {
   return (
     <div
       className={`h-[1px] bg-black ${className}`}
       style={{
         width: `${width}px`,
-        opacity: opacity / 100
+        opacity: opacity / 100,
       }}
       role="separator"
       aria-orientation="horizontal"

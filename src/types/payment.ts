@@ -7,4 +7,4 @@ export interface BillingOption {
 export interface PayMethodBtnProps {
   payBy: 'card' | 'paypal' | 'apple' | 'google';
   onClick?: () => void;
-} 
+}

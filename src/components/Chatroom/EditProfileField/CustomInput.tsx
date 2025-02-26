@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface CustomInputProps {
   label: string;
@@ -12,8 +12,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
   label,
   value,
   onChange,
-  placeholder = "Enter text",
-  type = "text",
+  placeholder = 'Enter text',
+  type = 'text',
 }) => {
   return (
     <div className="flex flex-col items-center gap-4">
@@ -24,7 +24,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full h-[55px] py-[14px] px-4 bg-transparent text-center rounded-[20px] border border-[#898B90] text-gray-900 placeholder-[#898B90] focus:outline-none focus:border-blue-500"
+          className="h-[55px] w-full rounded-[20px] border border-[#898B90] bg-transparent px-4 py-[14px] text-center text-gray-900 placeholder-[#898B90] focus:border-blue-500 focus:outline-none"
         />
       </div>
     </div>

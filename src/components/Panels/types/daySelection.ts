@@ -6,4 +6,4 @@ export interface DayOption {
 export interface DaySelectionPanelProps {
   nextStep: () => void;
   previousStep: () => void;
-} 
+}

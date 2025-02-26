@@ -1,7 +1,7 @@
 import { WEIGHT_UNITS, CAT_BREEDS } from './constants';
 
-export type WeightUnit = typeof WEIGHT_UNITS[keyof typeof WEIGHT_UNITS];
-export type CatBreed = typeof CAT_BREEDS[number];
+export type WeightUnit = (typeof WEIGHT_UNITS)[keyof typeof WEIGHT_UNITS];
+export type CatBreed = (typeof CAT_BREEDS)[number];
 
 export interface CatWeightFormData {
   breed: CatBreed | null;
@@ -42,4 +42,4 @@ export interface FrequencyOption {
 export interface Panel10Props {
   nextStep: () => void;
   previousStep: () => void;
-} 
+}

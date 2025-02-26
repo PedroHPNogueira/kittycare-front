@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import NavigationButtons from "../NavigationButtons";
-import ActivityCard from "./components/ActivityCard";
-import { ACTIVITY_LEVELS, STORAGE_KEY } from "./constants/panel09Data";
+import React, { useState, useEffect } from 'react';
+import NavigationButtons from '../NavigationButtons';
+import ActivityCard from './components/ActivityCard';
+import { ACTIVITY_LEVELS, STORAGE_KEY } from './constants/panel09Data';
 
 interface Panel09Props {
   nextStep: () => void;
@@ -16,7 +16,7 @@ const Panel09: React.FC<Panel09Props> = ({ nextStep, previousStep }) => {
     const storedActivity = localStorage.getItem(STORAGE_KEY);
     if (storedActivity) {
       const activityId = ACTIVITY_LEVELS.find(
-        (level) => level.title === storedActivity
+        (level) => level.title === storedActivity,
       )?.id;
       setSelectedActivity(activityId ?? null);
     }
@@ -26,7 +26,7 @@ const Panel09: React.FC<Panel09Props> = ({ nextStep, previousStep }) => {
   useEffect(() => {
     if (selectedActivity !== null) {
       const selectedLevel = ACTIVITY_LEVELS.find(
-        (level) => level.id === selectedActivity
+        (level) => level.id === selectedActivity,
       );
       if (selectedLevel) {
         localStorage.setItem(STORAGE_KEY, selectedLevel.title);
@@ -35,18 +35,18 @@ const Panel09: React.FC<Panel09Props> = ({ nextStep, previousStep }) => {
   }, [selectedActivity]);
 
   return (
-    <div className="mx-auto p-4 lg:p-6 font-inter">
-      <div className="text-center mb-6">
-        <h1 className="font-bold text-2xl md:text-3xl mb-2">
+    <div className="mx-auto p-4 font-inter lg:p-6">
+      <div className="mb-6 text-center">
+        <h1 className="mb-2 text-2xl font-bold md:text-3xl">
           What's Your Cat's Activity Level?
         </h1>
-        <p className="text-sm text-darkGray mx-8 md:mx-36 text-center px-4">
+        <p className="mx-8 px-4 text-center text-sm text-darkGray md:mx-36">
           Select the option that best describes your cat's typical energy and
           activity level.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 lg:max-w-[1450px] md:mx-12 lg:mx-36">
+      <div className="mb-6 grid grid-cols-1 gap-4 md:mx-12 md:grid-cols-2 lg:mx-36 lg:max-w-[1450px]">
         {ACTIVITY_LEVELS.map((level) => (
           <ActivityCard
             key={level.id}

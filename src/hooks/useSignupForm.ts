@@ -25,10 +25,10 @@ export interface FormErrors {
 }
 
 const initialUserInfo: UserInfo = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  otp: "",
+  first_name: '',
+  last_name: '',
+  email: '',
+  otp: '',
 };
 
 const initialErrors: FormErrors = {};
@@ -51,14 +51,14 @@ export const useSignupForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserInfo(prev => ({ ...prev, [name]: value }));
-    setError(prev => {
+    setUserInfo((prev) => ({ ...prev, [name]: value }));
+    setError((prev) => {
       const newErrors = { ...prev };
       delete newErrors[name as keyof FormErrors];
       delete newErrors.general;
       return newErrors;
     });
-    if(value === "") return;
+    if (value === '') return;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,14 +70,16 @@ export const useSignupForm = () => {
     setIsLoading(true);
 
     try {
-      await dispatch(signUpUserWithOTPAsync({
-        ...userInfo,
-        first_name: userInfo.first_name.trim(),
-        last_name: userInfo.last_name.trim(),
-        email: userInfo.email.trim(),
-      })).unwrap();
+      await dispatch(
+        signUpUserWithOTPAsync({
+          ...userInfo,
+          first_name: userInfo.first_name.trim(),
+          last_name: userInfo.last_name.trim(),
+          email: userInfo.email.trim(),
+        }),
+      ).unwrap();
 
-      if (localStorage.getItem("catId")) {
+      if (localStorage.getItem('catId')) {
         const formData = collectFormData();
         await dispatch(createCatAsync(formData)).unwrap();
       }
@@ -87,9 +89,9 @@ export const useSignupForm = () => {
       navigate('/');
       // navigate('/priceselection?' + urlParams.toString());
     } catch (err: any) {
-      setError(prev => ({
+      setError((prev) => ({
         ...prev,
-        general: err || "Signup failed. Please try again.",
+        general: err || 'Signup failed. Please try again.',
       }));
     } finally {
       setIsLoading(false);
@@ -110,7 +112,7 @@ export const useSignupForm = () => {
       return true;
     } catch (err: any) {
       setError({
-        general: err.message || 'Failed to send verification code'
+        general: err.message || 'Failed to send verification code',
       });
       return false;
     } finally {
@@ -123,9 +125,16 @@ export const useSignupForm = () => {
     setIsLoading(true);
 
     try {
-      await dispatch(signUpUserWithOTPAsync({ email, first_name: userInfo.first_name.trim(), last_name: userInfo.last_name.trim(), token: token })).unwrap();
+      await dispatch(
+        signUpUserWithOTPAsync({
+          email,
+          first_name: userInfo.first_name.trim(),
+          last_name: userInfo.last_name.trim(),
+          token: token,
+        }),
+      ).unwrap();
 
-      if (localStorage.getItem("catId")) {
+      if (localStorage.getItem('catId')) {
         const formData = collectFormData();
         await dispatch(createCatAsync(formData)).unwrap();
       }
@@ -133,7 +142,7 @@ export const useSignupForm = () => {
       navigate(`/progress?step=4`);
     } catch (err: any) {
       setError({
-        general: err.message || 'Invalid verification code'
+        general: err.message || 'Invalid verification code',
       });
     } finally {
       setIsLoading(false);
@@ -151,4 +160,4 @@ export const useSignupForm = () => {
     handleEmailSubmit,
     handleOTPSubmit,
   };
-}; 
+};

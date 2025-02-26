@@ -9,4 +9,4 @@ export interface SetLoadingAction {
   payload: boolean;
 }
 
-export type UIActionTypes = SetLoadingAction; 
+export type UIActionTypes = SetLoadingAction;

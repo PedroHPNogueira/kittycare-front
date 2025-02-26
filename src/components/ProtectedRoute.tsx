@@ -20,7 +20,7 @@ interface ProtectedRouteProps {
 /**
  * ProtectedRoute Component
  * Protects routes by checking authentication status and redirecting unauthorized users
- * 
+ *
  * @component
  * @example
  * ```tsx
@@ -32,7 +32,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   redirectPath = '/login',
-  isLoading = false
+  isLoading = false,
 }) => {
   const location = useLocation();
 
@@ -51,4 +51,3 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 };
 // Prevent unnecessary re-renders
 export default React.memo(ProtectedRoute);
-

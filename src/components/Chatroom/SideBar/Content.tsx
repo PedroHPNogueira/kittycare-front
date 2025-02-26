@@ -26,7 +26,7 @@ const Content: FC<ContentProps> = ({
   onClick,
   handleHover,
   onHover,
-  children
+  children,
 }) => {
   const isHovered = onHover === id;
 

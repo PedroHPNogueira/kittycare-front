@@ -22,9 +22,9 @@ const Panel07: React.FC<Panel07Props> = ({ nextStep, previousStep }) => {
   }, []);
 
   const handleGoalSelect = useCallback((goal: string) => {
-    setSelectedGoals(prev => {
+    setSelectedGoals((prev) => {
       if (prev.includes(goal)) {
-        return prev.filter(g => g !== goal);
+        return prev.filter((g) => g !== goal);
       }
       if (prev.length < MAX_SELECTIONS) {
         return [...prev, goal];
@@ -38,31 +38,35 @@ const Panel07: React.FC<Panel07Props> = ({ nextStep, previousStep }) => {
     nextStep();
   }, [selectedGoals, nextStep]);
 
-  const isGoalSelected = useCallback((goal: string) =>
-    selectedGoals.includes(goal), [selectedGoals]);
+  const isGoalSelected = useCallback(
+    (goal: string) => selectedGoals.includes(goal),
+    [selectedGoals],
+  );
 
   return (
-    <div className="w-full md:max-w-[1380px] p-6 rounded-md mx-auto">
-      <div className="flex flex-col items-center justify-center mb-6 text-center">
-        <h2 className="text-black text-2xl md:text-3xl font-bold mb-2">
+    <div className="mx-auto w-full rounded-md p-6 md:max-w-[1380px]">
+      <div className="mb-6 flex flex-col items-center justify-center text-center">
+        <h2 className="mb-2 text-2xl font-bold text-black md:text-3xl">
           What's Standing in Your Way?
         </h2>
-        <p className="text-sm max-w-lg mx-auto mt-2 text-darkGray leading-relaxed">
-          Select all the barriers that may be making it difficult to reach your cat's goals.
+        <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-darkGray">
+          Select all the barriers that may be making it difficult to reach your
+          cat's goals.
         </p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6 w-3/4 mx-auto">
+      <div className="mx-auto mb-6 grid w-3/4 grid-cols-1 gap-4 lg:grid-cols-4">
         {challengeOptions.map((goal) => (
           <div
             key={goal.title}
             onClick={() => handleGoalSelect(goal.title)}
-            className={`cursor-pointer border-2 border-lightGray2 py-8 px-6 rounded-lg text-left transition-colors ${isGoalSelected(goal.title)
-              ? "bg-primaryBlue text-white border-none"
-              : "hover:bg-primaryBlue hover:text-white"
-              }`}
+            className={`cursor-pointer rounded-lg border-2 border-lightGray2 px-6 py-8 text-left transition-colors ${
+              isGoalSelected(goal.title)
+                ? 'border-none bg-primaryBlue text-white'
+                : 'hover:bg-primaryBlue hover:text-white'
+            }`}
           >
-            <h3 className="text-md md:text-lg mb-1.5">{goal.title}</h3>
-            <p className="text-xs sm:text-sm opacity-80 leading-snug">
+            <h3 className="text-md mb-1.5 md:text-lg">{goal.title}</h3>
+            <p className="text-xs leading-snug opacity-80 sm:text-sm">
               {goal.description}
             </p>
           </div>

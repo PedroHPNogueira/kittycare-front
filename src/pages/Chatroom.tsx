@@ -15,7 +15,7 @@ const Chatroom: FC = () => {
   useSubscriptionCheck();
   // useLocalStorageCleanup();
   return (
-    <div className="w-full h-[100dvh]">
+    <div className="h-[100dvh] w-full">
       <ChatroomLayout>
         <SideBar />
         <ChatField />

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 
 interface CustomDropdownProps {
   label: string;
@@ -13,7 +13,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   options,
   selectedOption,
   onSelect,
-  placeholder = "Select an option",
+  placeholder = 'Select an option',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -28,8 +28,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -38,19 +38,17 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       <div className="relative w-full" ref={dropdownRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex justify-center items-center h-[55px] py-[14px] text-center rounded-[20px] border border-[#898B90] text-[#898B90]"
+          className="flex h-[55px] w-full items-center justify-center rounded-[20px] border border-[#898B90] py-[14px] text-center text-[#898B90]"
         >
           <div className="flex items-center justify-between gap-1">
             <span
-              className={`block truncate ${
-                !selectedOption ? "text-gray-500" : "text-gray-900"
-              }`}
+              className={`block truncate ${!selectedOption ? 'text-gray-500' : 'text-gray-900'}`}
             >
               {selectedOption || placeholder}
             </span>
             <svg
-              className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
-                isOpen ? "transform rotate-180" : ""
+              className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${
+                isOpen ? 'rotate-180 transform' : ''
               }`}
               fill="none"
               stroke="currentColor"
@@ -67,8 +65,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         </button>
 
         {isOpen && (
-          <div className="absolute z-10 w-full border border-[#898B90] rounded-[20px] bg-[#FAF6F3]">
-            <ul className="py-4 px-[15px] max-h-60 overflow-auto">
+          <div className="absolute z-10 w-full rounded-[20px] border border-[#898B90] bg-[#FAF6F3]">
+            <ul className="max-h-60 overflow-auto px-[15px] py-4">
               {options.map((option, index) => (
                 <li
                   key={index}
@@ -76,7 +74,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     onSelect(option.toLocaleLowerCase());
                     setIsOpen(false);
                   }}
-                  className="text-center py-2 hover:bg-[#D1D6E2] rounded-[15px] text-gray-900 cursor-pointer"
+                  className="cursor-pointer rounded-[15px] py-2 text-center text-gray-900 hover:bg-[#D1D6E2]"
                 >
                   {option}
                 </li>
