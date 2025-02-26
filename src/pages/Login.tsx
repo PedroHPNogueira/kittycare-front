@@ -5,14 +5,22 @@ import { changeMethod } from '../Redux/features/billingSlice';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../Redux/hooks';
 import ReactPixel from 'react-facebook-pixel';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { signInWithOTPAPI } from '../services/api';
-import { loginUserWithOTPAsync } from '../Redux/features/userSlice';
+import {
+  loginUserWithOTPAsync,
+  googleLoginUserAsync,
+} from '../Redux/features/userSlice';
 import { useRive, UseRiveParameters } from '@rive-app/react-canvas';
 import styles from '../components/LoadingOverlay/LoadingOverlay.module.css';
 import googleIcon from '/assets/png/google.png';
 import { LogBtnBy } from '../components/Login/LogBtnBy';
 import { Divider } from '../components/Login/Divider';
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const GOOGLE_REDIRECT_URI = import.meta.env.VITE_GOOGLE_REDIRECT_URI;
+const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=id_token&scope=openid email profile&nonce=your_nonce`;
+
 interface LoginError {
   email?: string;
   otp?: string;
@@ -97,8 +105,36 @@ const Login: React.FC = () => {
     }
   };
 
+  const redirectToGoogleLogin = () => {
+    window.location.href = GOOGLE_AUTH_URL;
+  };
+
   const { RiveComponent } = useRive(RIVE_ANIMATION_CONFIG);
   const isPhone = window.innerWidth < 768;
+
+  const pathname = useLocation().pathname;
+
+  useEffect(() => {
+    const getGoogleTokenFromUrl = () => {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      return params.get('id_token');
+    };
+
+    const googleToken = getGoogleTokenFromUrl();
+
+    // If no token, return
+    if (!googleToken) return;
+
+    // If token, login
+    const handleGoogleLogin = async () => {
+      await dispatch(googleLoginUserAsync(googleToken));
+
+      navigate('/dashboard');
+    };
+
+    handleGoogleLogin();
+  }, [pathname]);
 
   return (
     <Layout>
@@ -145,7 +181,7 @@ const Login: React.FC = () => {
               src={googleIcon}
               alt="google"
               className="flex items-center justify-center"
-              onClick={() => {}}
+              onClick={redirectToGoogleLogin}
             />
           </div>
         </div>
