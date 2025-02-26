@@ -27,6 +27,21 @@ export const signUpAPI = async (userData: SignupState) => {
   }
 };
 
+export const googleLoginAPI = async (googleIdToken: string) => {
+  try {
+    const response = await API.post('/api/google-auth/signin', {
+      googleIdToken,
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.error ||
+        error.response?.data?.message ||
+        'Login failed',
+    );
+  }
+};
+
 export const loginAPI = async (credentials: LoginState) => {
   try {
     const response = await API.post('/api/supabase/signin', credentials);
