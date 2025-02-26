@@ -1,11 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { signUpAPI, loginAPI, verifyOTPAPI } from '../../services/api';
+import {
+  signUpAPI,
+  loginAPI,
+  verifyOTPAPI,
+  googleLoginAPI,
+} from '../../services/api';
 import { LoginState, SignupState, UserState } from '../../utils/types';
 import { setAuthToken, clearTokens } from '../../utils/auth';
 import { fetchCatsAsync } from './catsSlice';
 import { fetchSubscriptionsAsync } from './subscriptionSlice';
 
 const initialState: UserState = {
+  photo: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -13,6 +19,26 @@ const initialState: UserState = {
   status: '',
   error: '',
 };
+
+export const googleLoginUserAsync = createAsyncThunk(
+  'user/googleLoginUser',
+  async (googleIdToken: string, { rejectWithValue }) => {
+    try {
+      const response = await googleLoginAPI(googleIdToken);
+
+      setAuthToken({
+        token: response.token,
+        expiresIn: response.expiresIn || '1h',
+        email: response.googleUser.email,
+        photo: response.googleUser.picture || '',
+      });
+
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
 export const signUpUserAsync = createAsyncThunk(
   'user/signUpUser',
@@ -38,7 +64,7 @@ export const signUpUserWithOTPAsync = createAsyncThunk(
   'user/signUpUserWithOTP',
   async (credentials: SignupState, { rejectWithValue }) => {
     try {
-      let response = await verifyOTPAPI(
+      const response = await verifyOTPAPI(
         credentials.email,
         credentials.token || '',
       );
@@ -140,6 +166,23 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(googleLoginUserAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(googleLoginUserAsync.fulfilled, (state, action) => {
+        Object.assign(state, {
+          status: 'succeeded',
+          isAuthenticated: true,
+          first_name: action.payload.googleUser.given_name,
+          last_name: action.payload.googleUser.family_name,
+          email: action.payload.googleUser.email,
+          photo: action.payload.googleUser.picture,
+        });
+      })
+      .addCase(googleLoginUserAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload as string;
+      })
       .addCase(signUpUserAsync.pending, (state) => {
         state.status = 'loading';
       })
